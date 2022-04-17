@@ -8,3 +8,7 @@ dependencies {
   annotationProcessor 'com.palantir.conjure.java:conjure-undertow-processor'
   annotationProcessor 'com.palantir.dialogue:dialogue-annotations'
 }
+
+configurations.all {
+  exclude group: 'commons-logging', module: 'commons-logging'
+}
