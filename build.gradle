@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.42.0'
+        classpath 'com.palantir.javaformat:gradle-palantir-java-format:2.22.0'
+        classpath 'com.palantir.baseline:gradle-baseline-java:4.105.0'
+        classpath 'com.palantir.gradle.gitversion:gradle-git-version:0.15.0'
+        classpath 'gradle.plugin.org.inferred:gradle-processors:3.6.0'
+    }
+}
+
+plugins {
+    id 'com.palantir.consistent-versions' version '2.10.0'
+}
+
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.palantir.baseline'
+apply plugin: 'com.palantir.git-version'
+apply plugin: 'com.palantir.baseline-java-versions'
+
+javaVersions {
+    libraryTarget = 17
+    runtime = 17
+}
+
+allprojects {
+    apply plugin: 'com.palantir.java-format'
+
+    group 'com.github.j-baker.template'
+    version rootProject.version
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.inferred.processors'
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs += ['-Werror']
+    }
+}
