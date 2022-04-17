@@ -2,6 +2,7 @@ dependencies {
   implementation 'com.google.guava:guava'
   implementation 'com.palantir.conjure.java:conjure-undertow-annotations'
   implementation 'com.palantir.dialogue:dialogue-annotations'
+  implementation 'net.sourceforge.htmlunit:htmlunit'
 
   annotationProcessor 'com.palantir.conjure.java:conjure-undertow-processor'
   annotationProcessor 'com.palantir.dialogue:dialogue-annotations'
