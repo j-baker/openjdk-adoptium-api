@@ -18,5 +18,25 @@ package io.jbaker.oai.scrape;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public record JavaRelease(String version, Map<Architecture, URI> versions) {}
+public record JavaRelease(String version, Map<Architecture, URI> versions) {
+
+    // 19-loom+5-429
+    // 19-ea+18
+    private static final Pattern EXPERIMENT_VERSION_PATTERN = Pattern.compile("[0-9]+-(?<experiment>[a-z]+).*");
+
+    public Optional<String> getExperimentName() {
+        Matcher matcher = EXPERIMENT_VERSION_PATTERN.matcher(version);
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+        return Optional.of(matcher.group("experiment"));
+    }
+
+    public int getLangLevel() {
+        return Integer.parseInt(version.substring(0, version.indexOf('-')));
+    }
+}

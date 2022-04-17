@@ -43,6 +43,26 @@ public enum Architecture {
                 "fancy name did not correspond to an architecture", SafeArg.of("architecture", maybeFancyName));
     }
 
+    public static Architecture fromOsAndMicroArch(String os, String march) {
+        return switch (os) {
+            case "windows" -> switch (march) {
+                case "x64" -> WINDOWS_X64;
+                default -> throw new SafeIllegalArgumentException();
+            };
+            case "linux" -> switch (march) {
+                case "x64" -> LINUX_X64;
+                case "aarch64" -> LINUX_AARCH64;
+                default -> throw new SafeIllegalArgumentException();
+            };
+            case "mac" -> switch (march) {
+                case "x64" -> MACOS_X64;
+                case "aarch64" -> MACOS_AARCH64;
+                default -> throw new SafeIllegalArgumentException();
+            };
+            default -> throw new SafeIllegalArgumentException();
+        };
+    }
+
     private static String normalize(String architecture) {
         // the website has annoying unicode hair spaces
         return architecture.replaceAll("\\W", "");
