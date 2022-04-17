@@ -2,8 +2,13 @@ dependencies {
   implementation 'com.google.guava:guava'
   implementation 'com.palantir.conjure.java:conjure-undertow-annotations'
   implementation 'com.palantir.dialogue:dialogue-annotations'
+  implementation 'io.dropwizard:dropwizard-core'
   implementation 'net.sourceforge.htmlunit:htmlunit'
 
   annotationProcessor 'com.palantir.conjure.java:conjure-undertow-processor'
   annotationProcessor 'com.palantir.dialogue:dialogue-annotations'
+}
+
+configurations.all {
+  exclude group: 'commons-logging', module: 'commons-logging'
 }
