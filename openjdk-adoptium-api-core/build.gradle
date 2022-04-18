@@ -1,4 +1,5 @@
 apply plugin: 'com.palantir.sls-java-service-distribution'
+apply plugin: 'com.palantir.docker'
 
 dependencies {
   implementation 'com.google.guava:guava'
@@ -20,4 +21,9 @@ distribution {
   serviceGroup project.group
   defaultJvmOpts '-Xmx512m'
   gc 'response-time'
+}
+
+docker {
+  name 'ghcr.io/j-baker/openjdk-adoptium-api'
+  files tasks.distTar.outputs
 }
