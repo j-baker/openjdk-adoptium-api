@@ -27,7 +27,7 @@ public final class Main extends Application<Configuration> {
     private Main() {}
 
     public static void main(String[] _args) throws Exception {
-        new Main().run("server", "openjdk-adoptium-api-core/var/conf/install.yml");
+        new Main().run("server", "var/conf/install.yml");
     }
 
     @Override
