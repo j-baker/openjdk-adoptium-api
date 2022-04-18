@@ -1,3 +1,5 @@
+apply plugin: 'com.palantir.sls-java-service-distribution'
+
 dependencies {
   implementation 'com.google.guava:guava'
   implementation 'com.palantir.conjure.java:conjure-undertow-annotations'
@@ -11,4 +13,11 @@ dependencies {
 
 configurations.all {
   exclude group: 'commons-logging', module: 'commons-logging'
+}
+
+distribution {
+  serviceName 'openjdk-adoptium-api'
+  serviceGroup project.group
+  defaultJvmOpts '-Xmx512m'
+  gc 'response-time'
 }
