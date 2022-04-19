@@ -1,16 +1,18 @@
-name: Run tests
+name: Push new docker container
 
 on:
-  push:
+  workflow_run:
+    workflows: ['Run Tests']
     branches: [ main ]
-  pull_request:
-    branches: [ main]
+    types:
+      - completed
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
-  check:
+  push:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +26,12 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '18'
+    - name: Log in to the container registry
+      uses: redhat-actions/podman-login@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: check
+        arguments: dockerPush
