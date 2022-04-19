@@ -28,7 +28,7 @@ jobs:
         arguments: check
   push:
     runs-on: ubuntu-latest
-    needs: test
+    needs: check
     if: github.ref == 'ref/heads/master'
     steps:
       - name: Log in to the container registry
