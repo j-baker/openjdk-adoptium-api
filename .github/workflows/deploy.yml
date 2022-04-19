@@ -29,6 +29,7 @@ jobs:
     - name: Log in to the container registry
       uses: redhat-actions/podman-login@v1
       with:
+        registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.CR_PAT }}
     - name: Build with Gradle
